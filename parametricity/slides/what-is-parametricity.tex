@@ -32,6 +32,7 @@ int add12(int)
 \begin{itemize}
   \item<1-> by the type alone, there are {$({2^{32}})^{2^{32}}$} possible implementations
   \item<2-> but this is a significantly smaller number than \rotatebox{90}{8}
+  \item<3-> \emph{Importantly, we know nothing more about this function from its type}
 \end{itemize}
 \end{frame}
 
@@ -50,7 +51,7 @@ int `add12`(int)
 
 \begin{frame}[fragile]
 \frametitle{Types}
-So we write some tests:
+So we write some speculative tests to relieve our anxiety:
 \begin{lstlisting}
 add12(0)        = 12
 add12(5)        = 17
@@ -60,18 +61,20 @@ add12(5096)     = 5104
 add12(2914578)  = 29145590
 add12(-2914578) = -29145566
 \end{lstlisting}
-And conclude, yes, this function adds twelve to its argument
+And pat ourselves on the back, concluding, yes, this function adds twelve to its argument
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Types}
 \framesubtitle{Woops!}
+\begin{block}{and then}
 \begin{lstlisting}
 def add12(n: Int): Int =
   if(n < 8000000) n + 12
   else n * 7
 \end{lstlisting}
-Narrowing the potential propositions about what this function does not do.
+\end{block}
+We need to narrow down the potential propositions about what this function does not do.
 \end{frame}
 
 \begin{frame}[fragile]
@@ -96,7 +99,8 @@ List<int> function(List<int>)
 \end{block}
 \begin{itemize}
   \item<1-> this function returns elements in a list that always appear in the argument
-  \item<2-> this function never inspects the elements, only rearranges them
+  \item<1-> \textbf{or it would not have compiled}
+  \item<2-> Convince yourself of this. Commit to this statement.
 \end{itemize}
 \end{frame}
 

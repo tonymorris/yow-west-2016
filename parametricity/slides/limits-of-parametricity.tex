@@ -1,15 +1,39 @@
 \begin{frame}[fragile]
 \frametitle{The Limits of Parametricity}
-\begin{lstlisting}
-<A> List<A> function(List<A>)
+\begin{block}{C\# type signature}
+\begin{lstlisting}[style=csharp]
+List<int> function(List<int>)
 \end{lstlisting}
-OK, so we know that all elements in the result appear in the input
+From the \emph{\textbf{monomorphic} type}, what does this function do?
+\end{block}
+\includegraphics[width=0.2\textwidth]{image/shrug.png}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The Limits of Parametricity}
+\begin{block}{C\# type signature}
+\begin{lstlisting}[style=csharp]
+List<A> function<A>(List<A>)
+\end{lstlisting}
+From the \emph{\textbf{polymorphic} type}, what does this function do?
+\end{block}
+\large{\textbf{FACT: all elements in the result appear in the input.}}
+
+\tiny{How do we narrow down to disambiguity?}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The Limits of Parametricity}
+\begin{block}{Do we?}
 \begin{itemize}
-  \item convince yourself of this fact
-  \item but how do we narrow it down?
-  \item how do we rule out all possibilities for the type but one?
-  \item how do we unambiguously determine what the function does?
+  \item<1-> write comments above the function
+
+            \lstinline[style=csharp]{/* This function twiddles the database to twoddle out the twip twop */}
+
+            \textbf{OR}
+  \item<2-> write \emph{true} testable statements about the function
 \end{itemize}
+\end{block}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -17,6 +41,53 @@ OK, so we know that all elements in the result appear in the input
 \begin{block}{what does this function do?}
 \lstinputlisting[style=haskell]{source/reverse-with-tests.hs}
 \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The Limits of Parametricity}
+\begin{block}{what does this function do?}
+\lstinputlisting[style=csharp,mathescape]{source/reverse-with-tests.cs}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The Limits of Parametricity}
+\begin{block}{another example (Haskell)}
+\begin{lstlisting}[style=haskell,mathescape]
+flatMap :: (a -> List b) -> List a -> List b
+flatMap = $\ldots$
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The Limits of Parametricity}
+\begin{block}{another example (C\#)}
+\begin{lstlisting}[style=csharp,mathescape]
+List<B> SelectMany<A, B>(this List<A>, Func<A, List<B>>) {
+  $\ldots$
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The Limits of Parametricity}
+\begin{block}{another example}
+\begin{lstlisting}[style=haskell,mathescape]
+flatMap :: (a -> List b) -> List a -> List b
+flatMap = $\ldots$
+\end{lstlisting}
+\begin{lstlisting}[style=csharp,mathescape]
+List<B> SelectMany<A, B>(this List<A>, Func<A, List<B>>) {
+  $\ldots$
+}
+\end{lstlisting}
+\end{block}
+\begin{itemize}
+  \item If the input list is empty, so is the result
+  \item Every \lstinline{(b)} in the result came from application of the given function
+\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -35,10 +106,45 @@ f :: a -> a
 g :: Functor f => y -> f x -> f y
 \end{lstlisting}
 \end{block}
-\begin{lstlisting}[style=haskell]
-> g "hi" [1,2,3]
+\emph{We already know that}
+\begin{lstlisting}[style=haskell,mathescape]
+$\lambda$> g "hi" [1,2,3]
 ["hi","hi","hi"]
 \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Once-inhabitance}
+\begin{block}{sometimes tests are \textbf{almost} unnecessary}
+\begin{lstlisting}[style=haskell]
+h :: a -> a -> a
+\end{lstlisting}
+\begin{lstlisting}[style=csharp]
+A h<A>(A a1, A a2)
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Once-inhabitance}
+\begin{block}{sometimes tests are \textbf{almost} unnecessary}
+\begin{lstlisting}[style=haskell]
+h :: a -> a -> a
+\end{lstlisting}
+\begin{lstlisting}[style=csharp]
+A h<A>(A a1, A a2)
+\end{lstlisting}
+
+\end{block}
+\begin{lstlisting}[style=haskell,mathescape]
+$\lambda$> h 7 8
+7
+\end{lstlisting}
+\begin{lstlisting}[style=csharp]
+csharp> h(7, 8)
+7
+\end{lstlisting}
+\emph{We now know \textbf{precisely} what this function does}
 \end{frame}
 
 \begin{frame}[fragile]

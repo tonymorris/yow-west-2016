@@ -65,15 +65,6 @@
   basicstyle=\ttfamily,
   moredelim=**[is][\btHL]{`}{`}
 }
-\lstdefinestyle{java}{
-  language=java,
-  basicstyle=\footnotesize\ttfamily,
-  stringstyle=\color{darkgreen}\ttfamily,
-  commentstyle=\color{gray}\ttfamily,
-  keywordstyle=\footnotesize\color{blue}\ttfamily,
-  tabsize=2,
-  moredelim=**[is][\btHL]{`}{`}
-}
 \lstdefinelanguage{scala}{
   morekeywords={abstract,case,catch,class,def,%
     do,else,extends,false,final,finally,%
@@ -99,6 +90,50 @@
   morestring=[b]",
   morestring=[b]',
   morestring=[b]"""
+}
+\lstdefinelanguage{csharp}
+{
+  sensitive=true,
+  morekeywords=[1]{
+  abstract, as, base, break, case,
+  catch, checked, class, const, continue,
+  default, delegate, do, else, enum,
+  event, explicit, extern, false,
+  finally, fixed, for, foreach, goto, if,
+  implicit, in, interface, internal, is,
+  lock, namespace, new, null, operator,
+  out, override, params, private,
+  protected, public, readonly, ref,
+  return, sealed, sizeof, stackalloc,
+  static, struct, switch, this, throw,
+  true, try, typeof, unchecked, unsafe,
+  using, virtual, volatile, while, bool,
+  byte, char, decimal, double, float,
+  int, lock, object, sbyte, short, string,
+  uint, ulong, ushort, void},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morecomment=[l][keywordstyle4]{\#},
+  morestring=[b]",
+  morestring=[b]',
+}
+\lstdefinestyle{java}{
+  language=java,
+  basicstyle=\footnotesize\ttfamily,
+  stringstyle=\color{darkgreen}\ttfamily,
+  commentstyle=\color{gray}\ttfamily,
+  keywordstyle=\footnotesize\color{blue}\ttfamily,
+  tabsize=2,
+  moredelim=**[is][\btHL]{`}{`}
+}
+\lstdefinestyle{csharp}{
+  language=csharp,
+  basicstyle=\tiny\ttfamily,
+  stringstyle=\color{darkgreen}\ttfamily,
+  commentstyle=\color{gray}\ttfamily,
+  keywordstyle=\tiny\color{blue}\ttfamily,
+  tabsize=2,
+  moredelim=**[is][\btHL]{`}{`}
 }
 \lstdefinestyle{scala}{
   language=scala,
@@ -140,8 +175,8 @@
 \logo{\includegraphics[height=0.8cm]{image/nicta.jpg}}
 
 \begin{document}
-\title{\large The Essential Tools of Open-Source}
-\subtitle{\tiny Functional Programming, Parametricity, Types}
+\title{\large Functional Programming, Parametricity, Types}
+\subtitle{\tiny Essential Tools of Programming}
 \institute[NICTA]{}
 \date {
   lca2016 FP Miniconf, 02 February 2016
@@ -159,7 +194,8 @@
 \input{what-is-parametricity}
 \input{fast-and-loose-reasoning}
 \input{limits-of-parametricity}
-\input{open-source}
+\input{readability}
+\input{goals}
 \input{references}
 
 \end{document}
